@@ -9,6 +9,9 @@ public class BirdScript : MonoBehaviour {
 
     public float forwardSpeed = 2f;
 
+    public GameObject cam;
+
+    bool dead = false;
 
     // Use this for initialization
     void Start () {
@@ -17,14 +20,25 @@ public class BirdScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        rb.transform.Translate(new Vector3(1, 0, 0) * forwardSpeed * Time.deltaTime);
-        if (Input.GetButtonDown("Jump"))
-        {
-            rb.velocity = Vector2.zero;
-            rb.AddForce(Vector2.up * jumpForce);
-        }
 
+        while (dead == false)
+        {
+            rb.transform.Translate(new Vector3(1, 0, 0) * forwardSpeed * Time.deltaTime);
+            cam.transform.Translate(new Vector3(1, 0, 0) * forwardSpeed * Time.deltaTime);
+            if (Input.GetButtonDown("Jump"))
+            {
+                rb.velocity = Vector2.zero;
+                rb.AddForce(Vector2.up * jumpForce);
+            }
+        }
+        
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        dead = true;
+    }
+
 
 
 }
