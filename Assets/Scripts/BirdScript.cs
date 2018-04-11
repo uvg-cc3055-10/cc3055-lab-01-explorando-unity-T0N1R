@@ -21,7 +21,7 @@ public class BirdScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        while (dead == false)
+        if (dead == false)
         {
             rb.transform.Translate(new Vector3(1, 0, 0) * forwardSpeed * Time.deltaTime);
             cam.transform.Translate(new Vector3(1, 0, 0) * forwardSpeed * Time.deltaTime);
@@ -30,6 +30,11 @@ public class BirdScript : MonoBehaviour {
                 rb.velocity = Vector2.zero;
                 rb.AddForce(Vector2.up * jumpForce);
             }
+        }
+
+        if(rb.transform.position.x > 46)
+        {
+            dead = true;
         }
         
     }
